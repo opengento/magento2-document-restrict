@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © OpenGento, All rights reserved.
+ * See LICENSE bundled with this library for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Service Contract -->
+    <preference for="Opengento\DocumentRestrict\Api\Data\AuthRequestInterface" type="Opengento\DocumentRestrict\Model\AuthRequest"/>
+    <preference for="Opengento\DocumentRestrict\Api\Data\RestrictInterface" type="Opengento\DocumentRestrict\Model\Restrict"/>
+    <preference for="Opengento\DocumentRestrict\Api\AuthenticationInterface" type="Opengento\DocumentRestrict\Model\Authentication"/>
+    <type name="Magento\Framework\EntityManager\HydratorPool">
+        <arguments>
+            <argument name="hydrators" xsi:type="array">
+                <item name="Opengento\Document\Api\Data\Restrict" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Opengento\DocumentRestrict\Model\ResourceModel\Restrict\RelationComposite" type="Magento\Framework\Model\ResourceModel\Db\VersionControl\RelationComposite"/>
+    <type name="Opengento\DocumentRestrict\Model\ResourceModel\DocumentType">
+        <arguments>
+            <argument name="entityRelationComposite" xsi:type="object">Opengento\Document\Model\ResourceModel\DocumentType\RelationComposite</argument>
+        </arguments>
+    </type>
+</config>

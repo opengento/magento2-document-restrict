@@ -1,0 +1,62 @@
+{
+    "name": "opengento/module-document-restrict",
+    "description": "This module aims to restrict documents by type in Magento 2.",
+    "keywords": [
+        "php",
+        "magento",
+        "magento2",
+        "module",
+        "extension",
+        "document",
+        "restrict",
+        "authentication",
+        "auth"
+    ],
+    "type": "magento2-module",
+    "require": {
+        "magento/framework": "^103.0",
+        "magento/module-customer": "^101.0",
+        "opengento/module-document": "^1.0"
+    },
+    "require-dev": {
+        "magento/magento-coding-standard": "^5",
+        "magento/marketplace-eqp": "^4.0",
+        "roave/security-advisories": "dev-latest"
+    },
+    "suggest": {
+        "opengento/module-document-product-link": "This module aims to help merchants to link their documents to products in Magento 2.",
+        "opengento/module-document-product-search": "This module aims to make documents searchable with product keywords in Magento 2.",
+        "opengento/module-document-search": "This module aims to make documents searchable for customers in Magento 2.",
+        "opengento/module-document-widget": "This module aims to help merchants to manage easily their documents on the Magento 2 storefront."
+    },
+    "license": [
+        "MIT"
+    ],
+    "homepage": "https://github.com/opengento/magento2-document-restrict",
+    "authors": [
+        {
+            "name": "Opengento Team",
+            "email": "opengento@gmail.com",
+            "homepage": "https://opengento.fr/",
+            "role": "lead"
+        },
+        {
+            "name": "Thomas Klein",
+            "email": "thomaskein876@gmail.com",
+            "homepage": "https://www.linkedin.com/in/thomas-klein/",
+            "role": "maintainer"
+        }
+    ],
+    "support": {
+        "source": "https://github.com/opengento/magento2-document-restrict",
+        "issues": "https://github.com/opengento/magento2-document-restrict/issues"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Opengento\\DocumentRestrict\\": ""
+        }
+    }
+}

@@ -1,0 +1,5 @@
+New file handler:
+
+
+file url is: document/restrict/view/id/453
+file path is: default => download/document
