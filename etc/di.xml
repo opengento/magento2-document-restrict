@@ -9,6 +9,7 @@
     <!-- Service Contract -->
     <preference for="Opengento\DocumentRestrict\Api\Data\AuthRequestInterface" type="Opengento\DocumentRestrict\Model\AuthRequest"/>
     <preference for="Opengento\DocumentRestrict\Api\Data\RestrictInterface" type="Opengento\DocumentRestrict\Model\Restrict"/>
+    <preference for="Opengento\DocumentRestrict\Api\RestrictRepositoryInterface" type="Opengento\DocumentRestrict\Model\RestrictRepository"/>
     <preference for="Opengento\DocumentRestrict\Api\AuthenticationInterface" type="Opengento\DocumentRestrict\Model\Authentication"/>
     <type name="Magento\Framework\EntityManager\HydratorPool">
         <arguments>
@@ -18,9 +19,43 @@
         </arguments>
     </type>
     <virtualType name="Opengento\DocumentRestrict\Model\ResourceModel\Restrict\RelationComposite" type="Magento\Framework\Model\ResourceModel\Db\VersionControl\RelationComposite"/>
-    <type name="Opengento\DocumentRestrict\Model\ResourceModel\DocumentType">
+    <type name="Opengento\DocumentRestrict\Model\ResourceModel\Restrict">
         <arguments>
-            <argument name="entityRelationComposite" xsi:type="object">Opengento\Document\Model\ResourceModel\DocumentType\RelationComposite</argument>
+            <argument name="entityRelationComposite" xsi:type="object">Opengento\DocumentRestrict\Model\ResourceModel\Restrict\RelationComposite</argument>
+        </arguments>
+    </type>
+    <virtualType name="Opengento\DocumentRestrict\Model\Restrict\SearchCriteria\CollectionProcessor" type="Magento\Framework\Api\SearchCriteria\CollectionProcessor">
+        <arguments>
+            <argument name="processors" xsi:type="array"/>
+        </arguments>
+    </virtualType>
+    <type name="Opengento\DocumentRestrict\Model\RestrictRepository">
+        <arguments>
+            <argument name="collectionProcessor" xsi:type="object">Opengento\DocumentRestrict\Model\Restrict\SearchCriteria\CollectionProcessor</argument>
+        </arguments>
+    </type>
+    <!-- UI Components -->
+    <virtualType name="Opengento\DocumentRestrict\Ui\Component\DataProvider\Restrict\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">opengento_document_restrict</argument>
+            <argument name="resourceModel" xsi:type="string">Opengento\DocumentRestrict\Model\ResourceModel\Restrict</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="document_restrict_listing_data_source" xsi:type="string">Opengento\DocumentRestrict\Ui\Component\DataProvider\Restrict\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Opengento\DocumentRestrict\Ui\DataProvider\Restrict\Form\Modifier\Pool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array"/>
+        </arguments>
+    </virtualType>
+    <type name="Opengento\DocumentRestrict\Ui\DataProvider\Restrict\Form\DataProvider">
+        <arguments>
+            <argument name="pool" xsi:type="object">Opengento\DocumentRestrict\Ui\DataProvider\Restrict\Form\Modifier\Pool</argument>
         </arguments>
     </type>
 </config>
