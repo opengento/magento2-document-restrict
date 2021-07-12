@@ -5,7 +5,7 @@
  */
 declare(strict_types=1);
 
-namespace Opengento\DocumentRestrict\Controller\Adminhtml\Index;
+namespace Opengento\DocumentRestrict\Controller\Adminhtml\Restrict;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\Model\View\Result\Forward;

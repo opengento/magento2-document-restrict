@@ -51,10 +51,21 @@
             </argument>
         </arguments>
     </type>
+    <preference for="Opengento\DocumentRestrict\Model\Restrict\RegistryInterface" type="Opengento\DocumentRestrict\Model\Restrict\Registry"/>
+    <type name="Opengento\Document\Model\Config\Source\Visibility">
+        <arguments>
+            <argument name="options" xsi:type="array">
+                <item name="restrict" xsi:type="array">
+                    <item name="label" xsi:type="string" translatable="true">Restrict</item>
+                    <item name="value" xsi:type="const">Opengento\DocumentRestrict\Model\DocumentType\Visibility::VISIBILITY_RESTRICT</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
     <!-- UI Components -->
     <virtualType name="Opengento\DocumentRestrict\Ui\Component\DataProvider\Restrict\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
-            <argument name="mainTable" xsi:type="string">opengento_document_restrict</argument>
+            <argument name="mainTable" xsi:type="string">opengento_document_type_restrict</argument>
             <argument name="resourceModel" xsi:type="string">Opengento\DocumentRestrict\Model\ResourceModel\Restrict</argument>
         </arguments>
     </virtualType>

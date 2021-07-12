@@ -1,0 +1,69 @@
+<?php
+/**
+ * Copyright © OpenGento, All rights reserved.
+ * See LICENSE bundled with this library for license details.
+ */
+declare(strict_types=1);
+
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+
+/** @var Template $block */
+/** @var Escaper $escaper */
+?>
+<div class="block block-document-auth">
+    <div class="block-title">
+        <strong id="block-document-auth-heading" role="heading" aria-level="2">
+            <?= $escaper->escapeHtml(__('Document Authentication')) ?>
+        </strong>
+    </div>
+    <div class="block-content" aria-labelledby="block-document-auth-heading">
+        <form class="form form-auth"
+              action="<?= $escaper->escapeUrl($block->getData('post_action_url')) ?>"
+              method="post"
+              id="auth-form"
+              data-mage-init='{"validation":{}}'>
+            <?= $block->getBlockHtml('formkey') ?>
+            <input name="uenc" type="hidden" value="<?= $escaper->escapeHtmlAttr($block->getData('uenc')) ?>"/>
+            <fieldset class="fieldset auth" data-hasrequired="<?= $escaper->escapeHtml(__('* Required Fields')) ?>">
+                <div class="field note"><?= $escaper->escapeHtml(__('Authenticate to access the documents.')) ?></div>
+                <div class="field public_secret required">
+                    <label class="label" for="public_secret">
+                        <span><?= $escaper->escapeHtml(__('Username')) ?></span>
+                    </label>
+                    <div class="control">
+                        <input name="auth[public_secret]"
+                               autocomplete="off"
+                               id="public_secret"
+                               type="text"
+                               class="input-text"
+                               title="<?= $escaper->escapeHtmlAttr(__('Username')) ?>"
+                               data-mage-init='{"mage/trim-input":{}}'
+                               data-validate="{required:true}">
+                    </div>
+                </div>
+                <div class="field password required">
+                    <label for="pass" class="label">
+                        <span><?= $escaper->escapeHtml(__('Password')) ?></span>
+                    </label>
+                    <div class="control">
+                        <input name="auth[private_secret]" type="password"
+                               autocomplete="off"
+                               class="input-text"
+                               id="pass"
+                               title="<?= $escaper->escapeHtmlAttr(__('Password')) ?>"
+                               data-validate="{required:true}">
+                    </div>
+                </div>
+                <?= $block->getChildHtml('form_additional_info') ?>
+                <div class="actions-toolbar">
+                    <div class="primary">
+                        <button type="submit" class="action auth primary" name="send" id="send2">
+                            <span><?= $escaper->escapeHtml(__('Sign In')) ?></span>
+                        </button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

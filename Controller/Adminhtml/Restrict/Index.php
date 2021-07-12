@@ -5,7 +5,7 @@
  */
 declare(strict_types=1);
 
-namespace Opengento\DocumentRestrict\Controller\Adminhtml\Index;
+namespace Opengento\DocumentRestrict\Controller\Adminhtml\Restrict;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\Model\View\Result\Page;
@@ -20,7 +20,7 @@ class Index extends Action
     {
         /** @var Page $page */
         $page = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
-        $page->getConfig()->getTitle()->set(new Phrase('Document Restrictions'));
+        $page->getConfig()->getTitle()->set(new Phrase('Restrictions'));
 
         return $page;
     }

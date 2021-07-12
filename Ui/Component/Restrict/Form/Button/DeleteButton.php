@@ -10,7 +10,7 @@ namespace Opengento\DocumentRestrict\Ui\Component\Restrict\Form\Button;
 use Magento\Framework\Phrase;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
-use Opengento\Document\Model\Document\RegistryInterface;
+use Opengento\DocumentRestrict\Model\Restrict\RegistryInterface;
 use function sprintf;
 
 final class DeleteButton implements ButtonProviderInterface

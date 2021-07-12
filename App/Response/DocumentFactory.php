@@ -74,7 +74,7 @@ final class DocumentFactory
         if ($authRequest === null) {
             throw new EmptyAuthException(new Phrase('At least one auth parameter is needed.'));
         }
-        if (!$this->authentication->authenticate($document, $authRequest)) {
+        if (!$this->authentication->authenticate($document->getTypeId(), $authRequest)) {
             throw new InvalidAuthException(new Phrase('Authentication failed! Please try again.'));
         }
 

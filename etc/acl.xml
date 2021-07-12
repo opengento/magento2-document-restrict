@@ -10,10 +10,10 @@
         <resources>
             <resource id="Magento_Backend::admin">
                 <resource id="Opengento_Document::general">
-                    <resource id="Opengento_Document::document_restrict" title="Document Restrict" translate="title" sortOrder="60">
-                        <resource id="Opengento_Document::document_restrict_save" title="Save" translate="title" sortOrder="10"/>
-                        <resource id="Opengento_Document::document_restrict_delete" title="Delete" translate="title" sortOrder="20"/>
-                        <resource id="Opengento_Document::document_restrict_view" title="View" translate="title" sortOrder="30"/>
+                    <resource id="Opengento_DocumentRestrict::document_restrict" title="Document Restrict" translate="title" sortOrder="60">
+                        <resource id="Opengento_DocumentRestrict::document_restrict_save" title="Save" translate="title" sortOrder="10"/>
+                        <resource id="Opengento_DocumentRestrict::document_restrict_delete" title="Delete" translate="title" sortOrder="20"/>
+                        <resource id="Opengento_DocumentRestrict::document_restrict_view" title="View" translate="title" sortOrder="30"/>
                     </resource>
                 </resource>
             </resource>

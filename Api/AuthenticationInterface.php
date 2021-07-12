@@ -15,5 +15,5 @@ use Opengento\DocumentRestrict\Api\Data\AuthRequestInterface;
  */
 interface AuthenticationInterface
 {
-    public function authenticate(DocumentInterface $document, AuthRequestInterface $authRequest): bool;
+    public function authenticate(int $typeId, AuthRequestInterface $authRequest): bool;
 }

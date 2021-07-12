@@ -5,7 +5,7 @@
  */
 declare(strict_types=1);
 
-namespace Opengento\DocumentRestrict\Controller\Adminhtml\Index;
+namespace Opengento\DocumentRestrict\Controller\Adminhtml\Restrict;
 
 use Exception;
 use Magento\Backend\App\Action;
@@ -69,7 +69,7 @@ class Save extends Action implements HttpPostActionInterface
             $entityId = $this->restrictRepository->save($this->resolveRestrict())->getId();
             $this->dataPersistor->clear('document_restrict_post_data');
             $this->messageManager->addSuccessMessage(
-                new Phrase('The document restriction has been successfully saved.')
+                new Phrase('The restriction has been successfully saved.')
             );
         } catch (CouldNotSaveException $e) {
             $this->messageManager->addErrorMessage($e->getPrevious()->getMessage());

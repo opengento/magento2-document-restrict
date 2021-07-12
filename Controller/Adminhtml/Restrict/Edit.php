@@ -5,7 +5,7 @@
  */
 declare(strict_types=1);
 
-namespace Opengento\DocumentRestrict\Controller\Adminhtml\Index;
+namespace Opengento\DocumentRestrict\Controller\Adminhtml\Restrict;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
@@ -16,7 +16,7 @@ use Magento\Framework\Phrase;
 use Magento\Framework\View\Result\Page;
 use Opengento\DocumentRestrict\Api\Data\RestrictInterfaceFactory;
 use Opengento\DocumentRestrict\Api\RestrictRepositoryInterface;
-use Opengento\DocumentRestrict\Model\Document\RegistryInterface;
+use Opengento\DocumentRestrict\Model\Restrict\RegistryInterface;
 
 class Edit extends Action
 {
@@ -70,7 +70,7 @@ class Edit extends Action
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
         $resultPage->setActiveMenu('Opengento_DocumentRestrict::document_restrict');
         $resultPage->getConfig()->getTitle()->prepend(
-            $restrict->getId() ? $restrict->getName() : new Phrase('New Document Restriction')
+            $restrict->getId() ? $restrict->getName() : new Phrase('New Restriction')
         );
 
         return $resultPage;

@@ -34,7 +34,7 @@ final class Authentication implements AuthenticationInterface
         $this->collectionFactory = $collectionFactory;
     }
 
-    public function authenticate(DocumentInterface $document, AuthRequestInterface $authRequest): bool
+    public function authenticate(int $typeId, AuthRequestInterface $authRequest): bool
     {
         $privateSecret = $authRequest->getPrivateSecret();
         if ($privateSecret) {
@@ -43,7 +43,7 @@ final class Authentication implements AuthenticationInterface
 
         /** @var Collection $collection */
         $collection = $this->collectionFactory->create();
-        $collection->addFieldToFilter('type_id', $document->getTypeId());
+        $collection->addFieldToFilter('type_id', $typeId);
         $collection->addFieldToFilter('public_secret', $authRequest->getPublicSecret());
         $collection->addFieldToFilter('private_secret', $privateSecret);
 

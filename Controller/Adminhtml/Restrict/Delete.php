@@ -5,7 +5,7 @@
  */
 declare(strict_types=1);
 
-namespace Opengento\DocumentRestrict\Controller\Adminhtml\Index;
+namespace Opengento\DocumentRestrict\Controller\Adminhtml\Restrict;
 
 use Exception;
 use Magento\Backend\App\Action;
@@ -40,7 +40,7 @@ class Delete extends Action implements HttpPostActionInterface
                 $this->restrictRepository->getById((int) $this->getRequest()->getParam('id'))
             );
             $this->messageManager->addSuccessMessage(
-                new Phrase('The document restriction has been successfully deleted.')
+                new Phrase('The restriction has been successfully deleted.')
             );
         } catch (LocalizedException $e) {
             $this->messageManager->addErrorMessage($e->getMessage());

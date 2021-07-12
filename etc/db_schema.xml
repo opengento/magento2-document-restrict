@@ -27,9 +27,9 @@
             <column name="public_secret"/>
         </index>
     </table>
-    <!-- opengento_document_restrict_customer -->
+    <!-- opengento_document_type_restrict_customer -->
     <!-- new relations in (document type or document) -->
-    <!-- opengento_document_restrict_customer_group -->
+    <!-- opengento_document_type_restrict_customer_group -->
     <!-- new multiselect in (document type or document) -->
     <!-- if document has restrict check doc restrict only, else check document type, else failure -->
 </schema>

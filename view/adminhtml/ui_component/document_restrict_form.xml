@@ -31,7 +31,7 @@
             </item>
         </argument>
         <settings>
-            <submitUrl path="document/index/save"/>
+            <submitUrl path="document/restrict/save"/>
         </settings>
         <dataProvider name="document_restrict_form_data_source" class="Opengento\DocumentRestrict\Ui\DataProvider\Restrict\Form\DataProvider">
             <settings>
@@ -50,18 +50,24 @@
                 <dataScope>entity_id</dataScope>
             </settings>
         </hidden>
-        <select name="type_id" sortOrder="20">
+        <field name="type_id" formElement="select" sortOrder="20" >
             <settings>
                 <dataType>select</dataType>
                 <label translate="true">Document Type</label>
-                <options class="Opengento\DocumentRestrict\Model\Config\Source\DocumentTypes"/>
-                <caption translate="true">-- Please Select --</caption>
                 <validation>
                     <rule name="required-entry" xsi:type="boolean">true</rule>
                 </validation>
                 <dataScope>type_id</dataScope>
             </settings>
-        </select>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Opengento\Document\Model\Config\Source\DocumentTypes"/>
+                        <caption translate="true">-- Please Select --</caption>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
         <input name="public_secret" sortOrder="30">
             <settings>
                 <dataType>text</dataType>
