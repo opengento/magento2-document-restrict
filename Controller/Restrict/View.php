@@ -49,7 +49,7 @@ class View implements HttpGetActionInterface
     private $resultFactory;
 
     /**
-     * @var documentFactory
+     * @var DocumentFactory
      */
     private $documentFactory;
 
@@ -78,8 +78,7 @@ class View implements HttpGetActionInterface
     {
         try {
             $response = $this->documentFactory->create(
-                $this->documentRepository->getById((int) $this->request->getParam(self::HTTP_PARAM_DOCUMENT_ID)),
-                $this->request
+                $this->documentRepository->getById((int) $this->request->getParam(self::HTTP_PARAM_DOCUMENT_ID))
             );
         } catch (NoSuchEntityException $e) {
             $this->logger->error($e->getLogMessage(), $e->getTrace());

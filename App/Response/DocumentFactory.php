@@ -9,25 +9,24 @@ namespace Opengento\DocumentRestrict\App\Response;
 
 use Exception;
 use Magento\Framework\App\Filesystem\DirectoryList;
-use Magento\Framework\App\RequestInterface;
 use Magento\Framework\App\Response\Http\FileFactory;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Exception\FileSystemException;
 use Magento\Framework\Filesystem\Driver\File\Mime;
 use Magento\Framework\Phrase;
 use Opengento\Document\Api\Data\DocumentInterface;
-use Opengento\Document\Model\Document\Helper\File;
+use Opengento\Document\Model\Document\Filesystem\File;
 use Opengento\DocumentRestrict\Api\AuthenticationInterface;
 use Opengento\DocumentRestrict\Exception\EmptyAuthException;
 use Opengento\DocumentRestrict\Exception\InvalidAuthException;
-use Opengento\DocumentRestrict\Model\AuthRequestBuilder;
+use Opengento\DocumentRestrict\Model\AuthSession;
 
 final class DocumentFactory
 {
     /**
-     * @var AuthRequestBuilder
+     * @var AuthSession
      */
-    private $authRequestBuilder;
+    private $authSession;
 
     /**
      * @var AuthenticationInterface
@@ -50,13 +49,13 @@ final class DocumentFactory
     private $fileFactory;
 
     public function __construct(
-        AuthRequestBuilder $authRequestBuilder,
+        AuthSession $authSession,
         AuthenticationInterface $authentication,
         File $fileHelper,
         Mime $mime,
         FileFactory $fileFactory
     ) {
-        $this->authRequestBuilder = $authRequestBuilder;
+        $this->authSession = $authSession;
         $this->authentication = $authentication;
         $this->fileHelper = $fileHelper;
         $this->mime = $mime;
@@ -69,11 +68,10 @@ final class DocumentFactory
      * @throws FileSystemException
      * @throws Exception
      */
-    public function create(DocumentInterface $document, RequestInterface $request): ResponseInterface
+    public function create(DocumentInterface $document): ResponseInterface
     {
-        $authRequest = $this->authRequestBuilder->createFromRequest($request);
-
-        if (!$authRequest->hasAuth()) {
+        $authRequest = $this->authSession->getAuthRequest();
+        if ($authRequest === null) {
             throw new EmptyAuthException(new Phrase('At least one auth parameter is needed.'));
         }
         if (!$this->authentication->authenticate($document, $authRequest)) {

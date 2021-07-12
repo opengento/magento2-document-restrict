@@ -66,8 +66,10 @@
             <settings>
                 <dataType>text</dataType>
                 <label translate="true">Public Secret</label>
-                <notice>Please fill this field to request the user a secret to access the documents.</notice>
                 <visible>true</visible>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
                 <dataScope>public_secret</dataScope>
             </settings>
         </input>
@@ -80,6 +82,5 @@
                 <dataScope>private_secret</dataScope>
             </settings>
         </input>
-        <!-- Todo: select customer(s)? -->
     </fieldset>
 </form>

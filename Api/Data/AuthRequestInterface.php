@@ -12,13 +12,7 @@ namespace Opengento\DocumentRestrict\Api\Data;
  */
 interface AuthRequestInterface
 {
-    public function hasAuth(): bool;
-
-    public function isCustomerAuth(): bool;
-
     public function getPublicSecret(): ?string;
 
     public function getPrivateSecret(): ?string;
-
-    public function getCustomerId(): ?int;
 }

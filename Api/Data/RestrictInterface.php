@@ -22,8 +22,6 @@ interface RestrictInterface
 
     public function getPrivateSecret(): ?string;
 
-    public function getCustomerId(): ?int;
-
     public function getCreatedAt(): DateTime;
 
     public function getUpdatedAt(): DateTime;

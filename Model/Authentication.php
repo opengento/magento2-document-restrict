@@ -36,11 +36,6 @@ final class Authentication implements AuthenticationInterface
 
     public function authenticate(DocumentInterface $document, AuthRequestInterface $authRequest): bool
     {
-        return $authRequest->hasAuth() && $this->checkAuth($document, $authRequest);
-    }
-
-    private function checkAuth(DocumentInterface $document, AuthRequestInterface $authRequest): bool
-    {
         $privateSecret = $authRequest->getPrivateSecret();
         if ($privateSecret) {
             $privateSecret = $this->encryptor->getHash($privateSecret, $this->encryptor->encrypt($privateSecret));
@@ -51,7 +46,6 @@ final class Authentication implements AuthenticationInterface
         $collection->addFieldToFilter('type_id', $document->getTypeId());
         $collection->addFieldToFilter('public_secret', $authRequest->getPublicSecret());
         $collection->addFieldToFilter('private_secret', $privateSecret);
-        $collection->addFieldToFilter('customer_id', $authRequest->getCustomerId());
 
         return (bool) $collection->getSize();
     }

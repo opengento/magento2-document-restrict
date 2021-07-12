@@ -11,7 +11,6 @@
         <column xsi:type="int" name="type_id" padding="10" unsigned="true" nullable="false" comment="Document Type ID"/>
         <column xsi:type="varchar" name="public_secret" nullable="false" length="255" comment="Document Type Public Secret"/>
         <column xsi:type="text" name="private_secret" nullable="false" comment="Document Type Private Secret"/>
-        <column xsi:type="int" name="customer_id" padding="10" unsigned="true" nullable="true" comment="Customer ID"/>
         <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created_at"/>
         <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="true" default="CURRENT_TIMESTAMP" comment="Updated_at"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
@@ -20,7 +19,6 @@
         <constraint xsi:type="unique" referenceId="OPENGENTO_DOCUMENT_TYPE_RESTRICT_ACCESS">
             <column name="type_id"/>
             <column name="public_secret"/>
-            <column name="customer_id"/>
         </constraint>
         <index referenceId="OPENGENTO_DOCUMENT_TYPE_RESTRICT_TYPE_ID" indexType="btree">
             <column name="type_id"/>
@@ -28,8 +26,10 @@
         <index referenceId="OPENGENTO_DOCUMENT_TYPE_RESTRICT_PUBLIC_SECRET" indexType="btree">
             <column name="public_secret"/>
         </index>
-        <index referenceId="OPENGENTO_DOCUMENT_TYPE_RESTRICT_CUSTOMER_ID" indexType="btree">
-            <column name="customer_id"/>
-        </index>
     </table>
+    <!-- opengento_document_restrict_customer -->
+    <!-- new relations in (document type or document) -->
+    <!-- opengento_document_restrict_customer_group -->
+    <!-- new multiselect in (document type or document) -->
+    <!-- if document has restrict check doc restrict only, else check document type, else failure -->
 </schema>

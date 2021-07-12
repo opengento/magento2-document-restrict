@@ -7,6 +7,6 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
-        <add id="Opengento_Document::document_restrict" title="Restrict Documents" module="Opengento_DocumentRestrict" sortOrder="40" parent="Opengento_Document::general" action="document/restrict/" resource="Opengento_DocumentRestrict::document_restrict"/>
+        <add id="Opengento_DocumentRestrict::document_restrict" title="Restrict Documents" module="Opengento_DocumentRestrict" sortOrder="40" parent="Opengento_Document::general" action="document/restrict/" resource="Opengento_DocumentRestrict::document_restrict"/>
     </menu>
 </config>

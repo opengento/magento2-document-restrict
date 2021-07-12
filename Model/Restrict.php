@@ -59,11 +59,6 @@ class Restrict extends AbstractExtensibleModel implements RestrictInterface, Ide
         return $this->_getData('private_secret') ? (string) $this->_getData('private_secret') : null;
     }
 
-    public function getCustomerId(): ?int
-    {
-        return $this->_getData('customer_id') ? (int) $this->_getData('customer_id') : null;
-    }
-
     /**
      * @inheritdoc
      * @throws Exception

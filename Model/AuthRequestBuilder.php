@@ -7,8 +7,10 @@ declare(strict_types=1);
 
 namespace Opengento\DocumentRestrict\Model;
 
-use Magento\Customer\Model\Session;
+use InvalidArgumentException;
 use Magento\Framework\App\RequestInterface;
+use Magento\Framework\Exception\InputException;
+use Magento\Framework\Phrase;
 use Opengento\DocumentRestrict\Api\Data\AuthRequestInterface;
 use Opengento\DocumentRestrict\Api\Data\AuthRequestInterfaceFactory;
 
@@ -22,25 +24,29 @@ final class AuthRequestBuilder
      */
     private $authRequestFactory;
 
-    /**
-     * @var Session
-     */
-    private $customerSession;
-
     public function __construct(
-        AuthRequestInterfaceFactory $authRequestFactory,
-        Session $customerSession
+        AuthRequestInterfaceFactory $authRequestFactory
     ) {
         $this->authRequestFactory = $authRequestFactory;
-        $this->customerSession = $customerSession;
     }
 
+    /**
+     * @throws InputException
+     */
     public function createFromRequest(RequestInterface $request): AuthRequestInterface
     {
-        return $this->authRequestFactory->create(
-            $request->getParam(self::HTTP_PARAM_PUBLIC_SECRET),
-            $request->getParam(self::HTTP_PARAM_PRIVATE_SECRET),
-            $this->customerSession->getCustomerId() ? (int)$this->customerSession->getCustomerId()() : null
+        if ($request->getParam(self::HTTP_PARAM_PUBLIC_SECRET) && $request->getParam(self::HTTP_PARAM_PRIVATE_SECRET)) {
+            return $this->authRequestFactory->create(
+                $request->getParam(self::HTTP_PARAM_PUBLIC_SECRET),
+                $request->getParam(self::HTTP_PARAM_PRIVATE_SECRET)
+            );
+        }
+
+        throw new InputException(
+            new Phrase(
+                'Please check that %s and %s are sent.',
+                [self::HTTP_PARAM_PUBLIC_SECRET, self::HTTP_PARAM_PRIVATE_SECRET]
+            )
         );
     }
 }
