@@ -70,10 +70,14 @@ class AuthSession extends SessionManager
 
     private function resolveAuthRequest(): ?AuthRequestInterface
     {
-        try {
-            $authRequest = $this->authRequestBuilder->createFromRequest($this->request);
-        } catch (InputException $e) {
-            $authRequest = null;
+        $authRequest = null;
+
+        if ($this->request->isPost()) {
+            try {
+                $authRequest = $this->authRequestBuilder->createFromRequest($this->request);
+            } catch (InputException $e) {
+                // Silence is golden
+            }
         }
 
         return $authRequest;

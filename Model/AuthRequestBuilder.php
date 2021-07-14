@@ -39,7 +39,7 @@ final class AuthRequestBuilder
         $publicSecret = $auth[self::HTTP_PARAM_PUBLIC_SECRET] ?? null;
         $privateSecret = $auth[self::HTTP_PARAM_PRIVATE_SECRET] ?? null;
         if ($publicSecret && $privateSecret) {
-            return $this->authRequestFactory->create($publicSecret, $privateSecret);
+            return new AuthRequest($publicSecret, $privateSecret);
         }
 
         throw new InputException(

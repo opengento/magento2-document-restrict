@@ -7,8 +7,8 @@ declare(strict_types=1);
 
 namespace Opengento\DocumentRestrict\Api;
 
-use Opengento\Document\Api\Data\DocumentInterface;
 use Opengento\DocumentRestrict\Api\Data\AuthRequestInterface;
+use Opengento\DocumentRestrict\Api\Data\RestrictInterface;
 
 /**
  * @api
@@ -16,4 +16,6 @@ use Opengento\DocumentRestrict\Api\Data\AuthRequestInterface;
 interface AuthenticationInterface
 {
     public function authenticate(int $typeId, AuthRequestInterface $authRequest): bool;
+
+    public function setPrivateSecret(RestrictInterface $restrict, string $privateSecret): RestrictInterface;
 }

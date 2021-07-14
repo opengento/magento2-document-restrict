@@ -53,7 +53,7 @@
         <field name="type_id" formElement="select" sortOrder="20" >
             <settings>
                 <dataType>select</dataType>
-                <label translate="true">Document Type</label>
+                <label translate="true">Restricted Document Type</label>
                 <validation>
                     <rule name="required-entry" xsi:type="boolean">true</rule>
                 </validation>
@@ -62,7 +62,7 @@
             <formElements>
                 <select>
                     <settings>
-                        <options class="Opengento\Document\Model\Config\Source\DocumentTypes"/>
+                        <options class="Opengento\DocumentRestrict\Model\Config\Source\DocumentType\Restricted"/>
                         <caption translate="true">-- Please Select --</caption>
                     </settings>
                 </select>
@@ -81,6 +81,7 @@
         </input>
         <input name="private_secret" sortOrder="40">
             <settings>
+                <elementTmpl>Opengento_DocumentRestrict/form/element/password</elementTmpl>
                 <dataType>text</dataType>
                 <label translate="true">Private Secret</label>
                 <notice>Please fill this field to request the user a password to access the documents.</notice>

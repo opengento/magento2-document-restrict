@@ -70,7 +70,7 @@ class Edit extends Action
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
         $resultPage->setActiveMenu('Opengento_DocumentRestrict::document_restrict');
         $resultPage->getConfig()->getTitle()->prepend(
-            $restrict->getId() ? $restrict->getName() : new Phrase('New Restriction')
+            $restrict->getId() ? $restrict->getPublicSecret() : new Phrase('New Restriction')
         );
 
         return $resultPage;

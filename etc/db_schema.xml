@@ -10,7 +10,7 @@
         <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Restrict Entity ID"/>
         <column xsi:type="int" name="type_id" padding="10" unsigned="true" nullable="false" comment="Document Type ID"/>
         <column xsi:type="varchar" name="public_secret" nullable="false" length="255" comment="Document Type Public Secret"/>
-        <column xsi:type="text" name="private_secret" nullable="false" comment="Document Type Private Secret"/>
+        <column xsi:type="text" name="private_secret" nullable="true" comment="Document Type Private Secret"/>
         <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created_at"/>
         <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="true" default="CURRENT_TIMESTAMP" comment="Updated_at"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">

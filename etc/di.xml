@@ -14,7 +14,7 @@
     <type name="Magento\Framework\EntityManager\HydratorPool">
         <arguments>
             <argument name="hydrators" xsi:type="array">
-                <item name="Opengento\Document\Api\Data\Restrict" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
+                <item name="Opengento\DocumentRestrict\Api\Data\RestrictInterface" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
             </argument>
         </arguments>
     </type>

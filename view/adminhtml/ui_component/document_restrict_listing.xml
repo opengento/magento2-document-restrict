@@ -100,7 +100,7 @@
                 <dataType>select</dataType>
                 <label translate="true">Type Name</label>
                 <filter>select</filter>
-                <options class="Opengento\Document\Model\Config\Source\DocumentTypes"/>
+                <options class="Opengento\DocumentRestrict\Model\Config\Source\DocumentType\Restricted"/>
             </settings>
         </column>
         <column name="public_secret" sortOrder="40">

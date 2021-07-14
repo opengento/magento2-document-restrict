@@ -10,11 +10,19 @@ use Magento\Framework\View\Element\Template;
 
 /** @var Template $block */
 /** @var Escaper $escaper */
+
+/**
+ * Block arguments:
+ *   - title: (Optional) Authentication form title.
+ *   - post_action_url: Post action URL to submit the form to.
+ *   - uenc: (Optional) Encoded url to redirect to after sign in.
+ *   - type_id: Document Type ID to sign in.
+ */
 ?>
 <div class="block block-document-auth">
     <div class="block-title">
         <strong id="block-document-auth-heading" role="heading" aria-level="2">
-            <?= $escaper->escapeHtml(__('Document Authentication')) ?>
+            <?= $escaper->escapeHtml($block->getData('title') ?: __('Document Authentication')) ?>
         </strong>
     </div>
     <div class="block-content" aria-labelledby="block-document-auth-heading">
@@ -25,6 +33,7 @@ use Magento\Framework\View\Element\Template;
               data-mage-init='{"validation":{}}'>
             <?= $block->getBlockHtml('formkey') ?>
             <input name="uenc" type="hidden" value="<?= $escaper->escapeHtmlAttr($block->getData('uenc')) ?>"/>
+            <input name="type_id" type="hidden" value="<?= $escaper->escapeHtmlAttr($block->getData('type_id')) ?>">
             <fieldset class="fieldset auth" data-hasrequired="<?= $escaper->escapeHtml(__('* Required Fields')) ?>">
                 <div class="field note"><?= $escaper->escapeHtml(__('Authenticate to access the documents.')) ?></div>
                 <div class="field public_secret required">
@@ -59,7 +68,7 @@ use Magento\Framework\View\Element\Template;
                 <div class="actions-toolbar">
                     <div class="primary">
                         <button type="submit" class="action auth primary" name="send" id="send2">
-                            <span><?= $escaper->escapeHtml(__('Sign In')) ?></span>
+                            <span><?= $escaper->escapeHtml(__('Access')) ?></span>
                         </button>
                     </div>
                 </div>

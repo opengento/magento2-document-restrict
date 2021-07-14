@@ -13,14 +13,18 @@ use Magento\Backend\App\Action\Context;
 use Magento\Backend\Model\View\Result\Redirect;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\App\Request\DataPersistorInterface;
+use Magento\Framework\EntityManager\HydratorInterface;
 use Magento\Framework\EntityManager\HydratorPool;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Phrase;
+use Opengento\DocumentRestrict\Api\AuthenticationInterface;
 use Opengento\DocumentRestrict\Api\Data\RestrictInterface;
 use Opengento\DocumentRestrict\Api\Data\RestrictInterfaceFactory;
 use Opengento\DocumentRestrict\Api\RestrictRepositoryInterface;
+use function array_filter;
+use function array_intersect_key;
 
 class Save extends Action implements HttpPostActionInterface
 {
@@ -30,6 +34,11 @@ class Save extends Action implements HttpPostActionInterface
      * @var RestrictRepositoryInterface
      */
     private $restrictRepository;
+
+    /**
+     * @var AuthenticationInterface
+     */
+    private $authentication;
 
     /**
      * @var RestrictInterfaceFactory
@@ -42,21 +51,30 @@ class Save extends Action implements HttpPostActionInterface
     private $dataPersistor;
 
     /**
-     * @var HydratorPool
+     * @var HydratorInterface
      */
-    private $hydratorPool;
+    private $hydrator;
+
+    /**
+     * @var string[]
+     */
+    private $allowedFields;
 
     public function __construct(
         Context $context,
         RestrictRepositoryInterface $restrictRepository,
+        AuthenticationInterface $authentication,
         RestrictInterfaceFactory $restrictFactory,
         DataPersistorInterface $dataPersistor,
-        HydratorPool $hydratorPool
+        HydratorPool $hydratorPool,
+        array $allowedFields
     ) {
         $this->restrictRepository = $restrictRepository;
+        $this->authentication = $authentication;
         $this->restrictFactory = $restrictFactory;
         $this->dataPersistor = $dataPersistor;
-        $this->hydratorPool = $hydratorPool;
+        $this->hydrator = $hydratorPool->getHydrator(RestrictInterface::class);
+        $this->allowedFields = array_filter($allowedFields);
         parent::__construct($context);
     }
 
@@ -97,10 +115,18 @@ class Save extends Action implements HttpPostActionInterface
     private function resolveRestrict(): RestrictInterface
     {
         $entityId = (int) $this->getRequest()->getParam('entity_id');
-        $restrict = $entityId ? $this->restrictRepository->getById($entityId) : $this->restrictFactory->create();
-        $hydrator = $this->hydratorPool->getHydrator(RestrictInterface::class);
+        $restrictData = array_intersect_key($this->getRequest()->getParams(), $this->allowedFields);
+
         /** @var RestrictInterface $restrict */
-        $restrict = $hydrator->hydrate($restrict, $this->getRequest()->getParams());
+        $restrict = $this->hydrator->hydrate(
+            $entityId ? $this->restrictRepository->getById($entityId) : $this->restrictFactory->create(),
+            $restrictData
+        );
+
+        $privateSecret = $this->getRequest()->getParam('private_secret');
+        if ($privateSecret && $privateSecret !== $restrict->getPrivateSecret()) {
+            $restrict = $this->authentication->setPrivateSecret($restrict, $privateSecret);
+        }
 
         return $restrict;
     }

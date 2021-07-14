@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © OpenGento, All rights reserved.
+ * See LICENSE bundled with this library for license details.
+ */
+-->
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="opengento_document_restrict_document_type_auth" class="Opengento\DocumentRestrict\Block\Widget\DocumentType\Auth" is_email_compatible="true" placeholder_image="Opengento_DocumentRestrict::images/widget/document_type_auth.png">
+        <label>Document Type Authentication</label>
+        <description>Authentication form to access document of a given type.</description>
+        <parameters>
+            <parameter name="title" xsi:type="text" required="true" visible="true" sort_order="10">
+                <label>Title</label>
+            </parameter>
+            <parameter name="type_id" xsi:type="select" source_model="Opengento\DocumentRestrict\Model\Config\Source\DocumentType\Restricted" required="true" visible="true" sort_order="20">
+                <label>Restricted Document Type</label>
+            </parameter>
+            <parameter name="url" xsi:type="text" required="false" visible="true" sort_order="30">
+                <label>Redirect to</label>
+                <description>Redirect the user to this url after he successfully signed-in.</description>
+            </parameter>
+            <parameter name="template" xsi:type="select" required="true" visible="true" sort_order="40">
+                <label>Template</label>
+                <options>
+                    <option name="auth" value="Opengento_DocumentRestrict::auth.phtml">
+                        <label>Authentication Form Template</label>
+                    </option>
+                </options>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

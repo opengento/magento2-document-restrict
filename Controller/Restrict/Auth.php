@@ -18,7 +18,7 @@ use Opengento\DocumentRestrict\Model\AuthSession;
 
 class Auth implements HttpPostActionInterface
 {
-    private const PARAM_NAME_TYPE_ID = 'typeId';
+    private const PARAM_NAME_TYPE_ID = 'type_id';
 
     /**
      * @var RequestInterface
@@ -69,12 +69,17 @@ class Auth implements HttpPostActionInterface
     public function execute()
     {
         $redirectResult = $this->redirectFactory->create();
+        $redirectResult->setRefererOrBaseUrl();
         $authRequest = $this->authSession->getAuthRequest();
+        $typeId = (int) $this->request->getParam(self::PARAM_NAME_TYPE_ID, -1);
 
         if ($authRequest !== null &&
-            $this->authentication->authenticate($this->request->getParam(self::PARAM_NAME_TYPE_ID, -1), $authRequest)
+            $this->authentication->authenticate($typeId, $authRequest)
         ) {
-            $redirectResult->setUrl($this->decoder->decode($this->request->getParam(self::PARAM_NAME_URL_ENCODED)));
+            $uenc = $this->request->getParam(self::PARAM_NAME_URL_ENCODED);
+            if ($uenc) {
+                $redirectResult->setUrl($this->decoder->decode($uenc));
+            }
         } else {
             $redirectResult->setRefererOrBaseUrl();
             $this->messageManager->addErrorMessage(new Phrase('Invalid credentials.'));
