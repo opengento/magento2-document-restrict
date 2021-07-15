@@ -10,7 +10,6 @@ namespace Opengento\DocumentRestrict\Model\Config\Source\DocumentType;
 use Magento\Framework\Data\OptionSourceInterface;
 use Opengento\Document\Model\ResourceModel\DocumentType\Collection;
 use Opengento\Document\Model\ResourceModel\DocumentType\CollectionFactory;
-use Opengento\DocumentRestrict\Model\DocumentType\Visibility;
 
 final class Restricted implements OptionSourceInterface
 {
@@ -36,7 +35,7 @@ final class Restricted implements OptionSourceInterface
             /** @var Collection $collection */
             $collection = $this->collectionFactory->create();
             $collection->addFieldToSelect(['id' => 'entity_id', 'name' => 'name']);
-            $collection->addFieldToFilter('visibility', Visibility::VISIBILITY_RESTRICT);
+            $collection->addFieldToFilter('is_restricted', true);
             $this->options = $collection->toOptionArray();
         }
 

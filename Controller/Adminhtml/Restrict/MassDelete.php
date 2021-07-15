@@ -20,7 +20,7 @@ use Magento\Framework\Phrase;
 use Magento\Ui\Component\MassAction\Filter;
 use Opengento\DocumentRestrict\Api\Data\RestrictInterface;
 use Opengento\DocumentRestrict\Api\RestrictRepositoryInterface;
-use Opengento\DocumentRestrict\Model\ResourceModel\Document\CollectionFactory;
+use Opengento\DocumentRestrict\Model\ResourceModel\Restrict\CollectionFactory;
 
 class MassDelete extends Action implements HttpPostActionInterface
 {

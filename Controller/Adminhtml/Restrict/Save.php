@@ -74,7 +74,7 @@ class Save extends Action implements HttpPostActionInterface
         $this->restrictFactory = $restrictFactory;
         $this->dataPersistor = $dataPersistor;
         $this->hydrator = $hydratorPool->getHydrator(RestrictInterface::class);
-        $this->allowedFields = array_filter($allowedFields);
+        $this->allowedFields = $allowedFields;
         parent::__construct($context);
     }
 
@@ -115,7 +115,7 @@ class Save extends Action implements HttpPostActionInterface
     private function resolveRestrict(): RestrictInterface
     {
         $entityId = (int) $this->getRequest()->getParam('entity_id');
-        $restrictData = array_intersect_key($this->getRequest()->getParams(), $this->allowedFields);
+        $restrictData = array_intersect_key($this->getRequest()->getParams(), array_filter($this->allowedFields));
 
         /** @var RestrictInterface $restrict */
         $restrict = $this->hydrator->hydrate(

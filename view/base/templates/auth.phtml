@@ -15,7 +15,7 @@ use Magento\Framework\View\Element\Template;
  * Block arguments:
  *   - title: (Optional) Authentication form title.
  *   - post_action_url: Post action URL to submit the form to.
- *   - uenc: (Optional) Encoded url to redirect to after sign in.
+ *   - redirect_to: (Optional) Encoded url to redirect to after sign in.
  *   - type_id: Document Type ID to sign in.
  */
 ?>
@@ -32,7 +32,7 @@ use Magento\Framework\View\Element\Template;
               id="auth-form"
               data-mage-init='{"validation":{}}'>
             <?= $block->getBlockHtml('formkey') ?>
-            <input name="uenc" type="hidden" value="<?= $escaper->escapeHtmlAttr($block->getData('uenc')) ?>"/>
+            <input name="redirect_to" type="hidden" value="<?= $escaper->escapeHtmlAttr($block->getData('redirect_to')) ?>"/>
             <input name="type_id" type="hidden" value="<?= $escaper->escapeHtmlAttr($block->getData('type_id')) ?>">
             <fieldset class="fieldset auth" data-hasrequired="<?= $escaper->escapeHtml(__('* Required Fields')) ?>">
                 <div class="field note"><?= $escaper->escapeHtml(__('Authenticate to access the documents.')) ?></div>

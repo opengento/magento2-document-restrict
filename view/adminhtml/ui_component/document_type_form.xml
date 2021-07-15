@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © OpenGento, All rights reserved.
+ * See LICENSE bundled with this library for license details.
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="document_type_form_fieldset">
+        <checkbox name="is_restricted" component="Magento_Ui/js/form/element/single-checkbox-toggle-notice" sortOrder="55">
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Is Restricted</label>
+                <description>If set to "yes", this will restrict the documents to allowed users only.</description>
+                <valueMap>
+                    <map name="false" xsi:type="number">0</map>
+                    <map name="true" xsi:type="number">1</map>
+                </valueMap>
+                <prefer>toggle</prefer>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataScope>is_restricted</dataScope>
+            </settings>
+        </checkbox>
+    </fieldset>
+</form>

@@ -12,10 +12,9 @@ use Magento\Framework\UrlInterface;
 use Opengento\Document\Api\Data\DocumentInterface;
 use Opengento\Document\Api\DocumentTypeRepositoryInterface;
 use Opengento\Document\Model\Document\Filesystem\UrlResolverInterface;
-use Opengento\DocumentRestrict\Model\DocumentType\Visibility;
 use Psr\Log\LoggerInterface;
 
-final class VisibilityResolver implements UrlResolverInterface
+final class RestrictedResolver implements UrlResolverInterface
 {
     /**
      * @var DocumentTypeRepositoryInterface
@@ -51,7 +50,7 @@ final class VisibilityResolver implements UrlResolverInterface
             $documentType = null;
         }
 
-        return $documentType && $documentType->getVisibility() === Visibility::VISIBILITY_RESTRICT
+        return $documentType && $documentType->getExtensionAttributes()->getIsRestricted()
             ? $this->urlBuilder->getUrl('document/restrict/view', ['id' => $document->getId()])
             : null;
     }

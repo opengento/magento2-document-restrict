@@ -6,6 +6,9 @@
  */
 -->
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="opengento_document_type">
+        <column xsi:type="boolean" name="is_restricted" nullable="false" comment="Document Type Restriction"/>
+    </table>
     <table name="opengento_document_type_restrict" resource="default" engine="innodb" comment="opengento_document_type_restrict">
         <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Restrict Entity ID"/>
         <column xsi:type="int" name="type_id" padding="10" unsigned="true" nullable="false" comment="Document Type ID"/>
@@ -16,6 +19,7 @@
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="entity_id"/>
         </constraint>
+        <constraint xsi:type="foreign" referenceId="OPENGENTO_DOCUMENT_RESTRICT_TYPE_ID_OPENGENTO_DOCUMENT_TYPE_ENTITY_ID" table="opengento_document_type_restrict" column="type_id" referenceTable="opengento_document_type" referenceColumn="entity_id" onDelete="CASCADE"/>
         <constraint xsi:type="unique" referenceId="OPENGENTO_DOCUMENT_TYPE_RESTRICT_ACCESS">
             <column name="type_id"/>
             <column name="public_secret"/>
@@ -26,6 +30,7 @@
         <index referenceId="OPENGENTO_DOCUMENT_TYPE_RESTRICT_PUBLIC_SECRET" indexType="btree">
             <column name="public_secret"/>
         </index>
+
     </table>
     <!-- opengento_document_type_restrict_customer -->
     <!-- new relations in (document type or document) -->

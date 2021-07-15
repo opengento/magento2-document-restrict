@@ -16,7 +16,7 @@
             <parameter name="type_id" xsi:type="select" source_model="Opengento\DocumentRestrict\Model\Config\Source\DocumentType\Restricted" required="true" visible="true" sort_order="20">
                 <label>Restricted Document Type</label>
             </parameter>
-            <parameter name="url" xsi:type="text" required="false" visible="true" sort_order="30">
+            <parameter name="redirect_to" xsi:type="text" required="false" visible="true" sort_order="30">
                 <label>Redirect to</label>
                 <description>Redirect the user to this url after he successfully signed-in.</description>
             </parameter>

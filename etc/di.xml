@@ -37,9 +37,9 @@
     <type name="Opengento\Document\Model\Document\Filesystem\PathResolver">
         <arguments>
             <argument name="resolvers" xsi:type="array">
-                <item name="visibility" xsi:type="array">
+                <item name="restricted" xsi:type="array">
                     <item name="sortOrder" xsi:type="number">10</item>
-                    <item name="resolver" xsi:type="object">Opengento\DocumentRestrict\Model\Document\Filesystem\PathResolver\VisibilityResolver</item>
+                    <item name="resolver" xsi:type="object">Opengento\DocumentRestrict\Model\Document\Filesystem\PathResolver\RestrictedResolver</item>
                 </item>
             </argument>
         </arguments>
@@ -47,20 +47,13 @@
     <type name="Opengento\Document\Model\Document\Filesystem\UrlResolver">
         <arguments>
             <argument name="urlResolvers" xsi:type="array">
-                <item name="visibility" xsi:type="object">Opengento\DocumentRestrict\Model\Document\Filesystem\UrlResolver\VisibilityResolver</item>
+                <item name="restricted" xsi:type="object">Opengento\DocumentRestrict\Model\Document\Filesystem\UrlResolver\RestrictedResolver</item>
             </argument>
         </arguments>
     </type>
     <preference for="Opengento\DocumentRestrict\Model\Restrict\RegistryInterface" type="Opengento\DocumentRestrict\Model\Restrict\Registry"/>
-    <type name="Opengento\Document\Model\Config\Source\Visibility">
-        <arguments>
-            <argument name="options" xsi:type="array">
-                <item name="restrict" xsi:type="array">
-                    <item name="label" xsi:type="string" translatable="true">Restrict</item>
-                    <item name="value" xsi:type="const">Opengento\DocumentRestrict\Model\DocumentType\Visibility::VISIBILITY_RESTRICT</item>
-                </item>
-            </argument>
-        </arguments>
+    <type name="Opengento\Document\Api\DocumentTypeRepositoryInterface">
+        <plugin name="Opengento_DocumentRestrict::document_type_repository" type="Opengento\DocumentRestrict\Plugin\Model\DocumentTypeRepository"/>
     </type>
     <!-- UI Components -->
     <virtualType name="Opengento\DocumentRestrict\Ui\Component\DataProvider\Restrict\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">

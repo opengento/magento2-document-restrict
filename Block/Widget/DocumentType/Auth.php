@@ -51,8 +51,8 @@ class Auth extends Template implements BlockInterface, IdentityInterface
         if (!$this->hasData('post_action_url')) {
             $this->setData('post_action_url', $this->getUrl('document/restrict/auth'));
         }
-        if ($this->hasData('url')) {
-            $this->setData('uenc', $this->encoder->encode($this->getUrl($this->getData('url'))));
+        if ($this->hasData('redirect_to')) {
+            $this->setData('redirect_to', $this->encoder->encode($this->getUrl($this->getData('redirect_to'))));
         }
 
         return parent::_beforeToHtml();

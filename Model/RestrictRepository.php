@@ -25,7 +25,7 @@ use Opengento\DocumentRestrict\Model\ResourceModel\Restrict as RestrictDb;
 use Opengento\DocumentRestrict\Model\ResourceModel\Restrict\Collection;
 use Opengento\DocumentRestrict\Model\ResourceModel\Restrict\CollectionFactory;
 
-final class RestrictRepository implements RestrictRepositoryInterface
+class RestrictRepository implements RestrictRepositoryInterface
 {
     /**
      * @var RestrictInterfaceFactory

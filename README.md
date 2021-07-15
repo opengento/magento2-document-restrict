@@ -42,7 +42,7 @@ bin/magento setup:upgrade
 ## Features
 
 This module aims to restrict documents by type in Magento 2.  
-Document types can be restricted if their visibility is set to `restrict`.
+Document types can be restricted if the restrict feature is enabled.
 
 ## Documentation
 

@@ -9,6 +9,7 @@ namespace Opengento\DocumentRestrict\Model;
 
 use Magento\Framework\App\Request\Http;
 use Magento\Framework\App\State;
+use Magento\Framework\DataObject;
 use Magento\Framework\Exception\InputException;
 use Magento\Framework\Session\Config\ConfigInterface;
 use Magento\Framework\Session\SaveHandlerInterface;
@@ -58,28 +59,21 @@ class AuthSession extends SessionManager
 
     public function setAuthRequest(AuthRequestInterface $authRequest): void
     {
-        $this->set('authRequest', $authRequest);
+        if ($this->storage instanceof DataObject) {
+            $this->storage->setData('authRequest', $authRequest);
+        }
     }
 
     public function getAuthRequest(): ?AuthRequestInterface
     {
-        $authRequest = $this->resolveAuthRequest() ?: $this->getData('authRequest');
-
-        return $authRequest instanceof AuthRequestInterface ? $authRequest : null;
-    }
-
-    private function resolveAuthRequest(): ?AuthRequestInterface
-    {
-        $authRequest = null;
-
         if ($this->request->isPost()) {
             try {
-                $authRequest = $this->authRequestBuilder->createFromRequest($this->request);
+                $this->setAuthRequest($this->authRequestBuilder->createFromRequest($this->request));
             } catch (InputException $e) {
                 // Silence is golden
             }
         }
 
-        return $authRequest;
+        return $this->getData('authRequest');
     }
 }
