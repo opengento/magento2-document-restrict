@@ -10,22 +10,28 @@ namespace Opengento\DocumentRestrict\Model\ResourceModel\DocumentType\Relation;
 use Magento\Framework\Model\AbstractModel;
 use Magento\Framework\Model\ResourceModel\Db\VersionControl\RelationInterface;
 use Opengento\Document\Api\Data\DocumentTypeInterface;
+use Opengento\DocumentRestrict\Model\ResourceModel\Migrate;
 
 final class Restrict implements RelationInterface
 {
+    /**
+     * @var Migrate
+     */
+    private $migrate;
+
+    public function __construct(
+        Migrate $migrate
+    ) {
+        $this->migrate = $migrate;
+    }
+
     public function processRelation(AbstractModel $object): void
     {
-        if ($object instanceof DocumentTypeInterface) {
-            $origIsRestricted = $object->getOrigData('is_restricted');
-            $isRestricted = $object->getExtensionAttributes()->getIsRestricted();
-
-            if ($origIsRestricted !== $isRestricted) {
-                if ($origIsRestricted) {
-                    //todo Move private to public: use batch action; DocumentType visibility shouldn't be updated till all is moved
-                } elseif ($isRestricted) {
-                    //todo Move public to private: use batch action; DocumentType visibility shouldn't be updated till all is moved
-                }
-            }
+        if (
+            $object instanceof DocumentTypeInterface &&
+            $object->getOrigData('is_restricted') !== $object->getData('is_restricted')
+        ) {
+            $this->migrate->scheduleMigration((int) $object->getId());
         }
     }
 }

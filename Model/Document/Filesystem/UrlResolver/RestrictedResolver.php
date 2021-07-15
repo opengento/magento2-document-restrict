@@ -41,7 +41,7 @@ final class RestrictedResolver implements UrlResolverInterface
         $this->logger = $logger;
     }
 
-    public function getUrl(DocumentInterface $document): ?string
+    public function getUrl(DocumentInterface $document): string
     {
         try {
             $documentType = $this->documentTypeRepository->getById($document->getTypeId());
@@ -52,6 +52,6 @@ final class RestrictedResolver implements UrlResolverInterface
 
         return $documentType && $documentType->getExtensionAttributes()->getIsRestricted()
             ? $this->urlBuilder->getUrl('document/restrict/view', ['id' => $document->getId()])
-            : null;
+            : '';
     }
 }

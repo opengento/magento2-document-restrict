@@ -30,7 +30,20 @@
         <index referenceId="OPENGENTO_DOCUMENT_TYPE_RESTRICT_PUBLIC_SECRET" indexType="btree">
             <column name="public_secret"/>
         </index>
-
+    </table>
+    <table name="opengento_document_type_restrict_migrate" resource="default" engine="innodb" comment="opengento_document_type_restrict_migrate">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Migrate Entity ID"/>
+        <column xsi:type="int" name="type_id" padding="10" unsigned="true" nullable="false" comment="Document Type ID"/>
+        <column xsi:type="varchar" name="state" nullable="false" length="255" comment="Migrate State"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created_at"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="true" default="CURRENT_TIMESTAMP" comment="Updated_at"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="OPENGENTO_DOCUMENT_RESTRICT_TYPE_ID_OPENGENTO_DOCUMENT_TYPE_ENTITY_ID" table="opengento_document_type_restrict_migrate" column="type_id" referenceTable="opengento_document_type" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <constraint xsi:type="unique" referenceId="OPENGENTO_DOCUMENT_TYPE_RESTRICT_TYPE_ID">
+            <column name="type_id"/>
+        </constraint>
     </table>
     <!-- opengento_document_type_restrict_customer -->
     <!-- new relations in (document type or document) -->

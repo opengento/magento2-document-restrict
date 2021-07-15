@@ -1,4 +1,4 @@
-# Document Module for Magento 2
+# Document Restrict Module for Magento 2
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/opengento/module-document-restrict.svg?style=flat-square)](https://packagist.org/packages/opengento/module-document-restrict)
 [![License: MIT](https://img.shields.io/github/license/opengento/magento2-document-restrict.svg?style=flat-square)](./LICENSE) 

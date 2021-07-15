@@ -84,6 +84,7 @@ class View implements HttpGetActionInterface
             $this->logger->error($e->getLogMessage(), $e->getTrace());
             $response = $this->forwardNoRoute();
         } catch (EmptyAuthException $e) {
+            $this->messageManager->addErrorMessage(new Phrase('Please authenticate first.'));
             $response = $this->redirectFailAuth();
         } catch (InvalidAuthException $e) {
             $this->messageManager->addErrorMessage($e->getMessage());

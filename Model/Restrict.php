@@ -20,7 +20,7 @@ class Restrict extends AbstractExtensibleModel implements RestrictInterface, Ide
 {
     public const CACHE_TAG = 'ope_dtr';
 
-    protected function _construct()
+    protected function _construct(): void
     {
         $this->_init(ResourceModel::class);
     }

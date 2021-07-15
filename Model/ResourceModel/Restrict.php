@@ -11,10 +11,7 @@ use Magento\Framework\Model\ResourceModel\Db\VersionControl\AbstractDb;
 
 class Restrict extends AbstractDb
 {
-    /**
-     * @inheritdoc
-     */
-    protected function _construct()
+    protected function _construct(): void
     {
         $this->_init('opengento_document_type_restrict', 'entity_id');
     }

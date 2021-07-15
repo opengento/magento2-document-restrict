@@ -18,6 +18,13 @@
             </argument>
         </arguments>
     </type>
+    <virtualType name="Opengento\Document\Model\ResourceModel\DocumentType\RelationComposite" type="Magento\Framework\Model\ResourceModel\Db\VersionControl\RelationComposite">
+        <arguments>
+            <argument name="relationProcessors" xsi:type="array">
+                <item name="restrict" xsi:type="object">Opengento\DocumentRestrict\Model\ResourceModel\DocumentType\Relation\Restrict</item>
+            </argument>
+        </arguments>
+    </virtualType>
     <virtualType name="Opengento\DocumentRestrict\Model\ResourceModel\Restrict\RelationComposite" type="Magento\Framework\Model\ResourceModel\Db\VersionControl\RelationComposite"/>
     <type name="Opengento\DocumentRestrict\Model\ResourceModel\Restrict">
         <arguments>

@@ -7,7 +7,7 @@
 -->
 <listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <columns name="document_type_listing_columns">
-        <column name="scheduled_import" component="Magento_Ui/js/grid/columns/select" sortOrder="65">
+        <column name="is_restricted" component="Magento_Ui/js/grid/columns/select" sortOrder="65">
             <settings>
                 <dataType>select</dataType>
                 <label translate="true">Is Restricted</label>
