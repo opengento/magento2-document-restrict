@@ -8,10 +8,10 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
     <group id="opengento_document">
         <job name="opengento_document_type_restrict_migrate" instance="Opengento\DocumentRestrict\Cron\Migrate" method="execute">
-            <config_path>opengento_document/migrate/schedule_migrate</config_path>
+            <config_path>opengento_document/migrate/migrate_schedule</config_path>
         </job>
         <job name="opengento_document_type_restrict_migrate_rotate" instance="Opengento\DocumentRestrict\Cron\Rotate" method="execute">
-            <config_path>opengento_document/migrate/schedule_rotate</config_path>
+            <config_path>opengento_document/migrate/rotate_schedule</config_path>
         </job>
     </group>
 </config>

@@ -40,10 +40,10 @@
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="entity_id"/>
         </constraint>
-        <constraint xsi:type="foreign" referenceId="OPENGENTO_DOCUMENT_RESTRICT_TYPE_ID_OPENGENTO_DOCUMENT_TYPE_ENTITY_ID" table="opengento_document_type_restrict_migrate" column="type_id" referenceTable="opengento_document_type" referenceColumn="entity_id" onDelete="CASCADE"/>
-        <constraint xsi:type="unique" referenceId="OPENGENTO_DOCUMENT_TYPE_RESTRICT_TYPE_ID">
+        <constraint xsi:type="foreign" referenceId="OPENGENTO_DOCUMENT_RESTRICT_MIGRATE_TYPE_ID_OPENGENTO_DOCUMENT_TYPE_ENTITY_ID" table="opengento_document_type_restrict_migrate" column="type_id" referenceTable="opengento_document_type" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <index referenceId="OPENGENTO_DOCUMENT_TYPE_RESTRICT_MIGRATE_TYPE_ID" indexType="btree">
             <column name="type_id"/>
-        </constraint>
+        </index>
     </table>
     <!-- opengento_document_type_restrict_customer -->
     <!-- new relations in (document type or document) -->

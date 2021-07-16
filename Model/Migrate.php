@@ -66,6 +66,7 @@ final class Migrate
         // Start migration
         $this->migrateDb->updateState($typeIds, 'running');
 
+        // Todo: handle batch management to avoid out of memory on large dataset with tons of files
         $documentCollection = $this->createDocumentCollection($typeIds);
         $docTypeCollection = $this->createDocTypeCollection($typeIds);
 
@@ -99,7 +100,7 @@ final class Migrate
     {
         $docTypeCollection = $this->docTypeCollectionFactory->create();
         $docTypeCollection->addFieldToSelect(['entity_id', 'file_dest_path', 'sub_path_length', 'is_restricted']);
-        $docTypeCollection->addFieldToFilter('type_id', ['in' => $typeIds]);
+        $docTypeCollection->addFieldToFilter('entity_id', ['in' => $typeIds]);
 
         return $docTypeCollection;
     }
