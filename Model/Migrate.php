@@ -85,11 +85,11 @@ final class Migrate
      */
     public function migrateQueue(): void
     {
-        $typeIds = $this->migrateDb->fetchPendingTypeIds();
+        $typeIds = $this->migrateDb->fetchQueuedTypeIds();
         $failedTypeIds = [];
 
         // Start migration
-        $this->migrateDb->updateState($typeIds, 'running');
+        $this->migrateDb->updateRunningState($typeIds);
 
         // Todo: handle batch management to avoid out of memory on large dataset with tons of files
         $documentCollection = $this->createDocumentCollection($typeIds);
@@ -101,15 +101,12 @@ final class Migrate
                 $docTypeCollection->getItemById($document->getTypeId()),
                 $filePath
             );
-            $document = $this->hydrator->hydrate(
-                $document,
-                ['file_path' => dirname($destPath), 'file_name' => basename($destPath)]
-            );
+
             try {
                 $this->file->moveFile($filePath, $destPath);
-                $this->documentRepository->save($document);
+                $this->documentRepository->save($this->updateDocument($document, $destPath));
             } catch (CouldNotSaveException $e) {
-                $this->logger->error($e->getMessage(), $e->getTrace());
+                $this->logger->error($e->getPrevious()->getMessage(), $e->getTrace());
                 $this->file->moveFile($destPath, $filePath);
             } catch (Exception $e) {
                 $this->logger->error($e->getMessage(), $e->getTrace());
@@ -118,13 +115,24 @@ final class Migrate
         }
 
         // End migration
-        $this->migrateDb->updateState(array_diff($typeIds, $failedTypeIds), 'completed');
+        $this->migrateDb->updateCompleteState(array_diff($typeIds, $failedTypeIds));
+        $this->migrateDb->updateFailureState($failedTypeIds);
+    }
+
+    private function updateDocument(DocumentInterface $document, string $filePath): DocumentInterface
+    {
+        return $this->hydrator->hydrate(
+            $document,
+            [
+                'file_path' => dirname($this->file->getRelativeFilePath($filePath)),
+                'file_name' => basename($filePath)
+            ]
+        );
     }
 
     private function createDocumentCollection(array $typeIds): DocumentCollection
     {
         $documentCollection = $this->documentCollectionFactory->create();
-        $documentCollection->addFieldToSelect(['type_id', 'file_name', 'file_path']);
         $documentCollection->addFieldToFilter('type_id', ['in' => $typeIds]);
 
         return $documentCollection;

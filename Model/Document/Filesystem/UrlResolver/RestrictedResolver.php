@@ -8,8 +8,10 @@ declare(strict_types=1);
 namespace Opengento\DocumentRestrict\Model\Document\Filesystem\UrlResolver;
 
 use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\Model\AbstractModel;
 use Magento\Framework\UrlInterface;
 use Opengento\Document\Api\Data\DocumentInterface;
+use Opengento\Document\Api\Data\DocumentTypeInterface;
 use Opengento\Document\Api\DocumentTypeRepositoryInterface;
 use Opengento\Document\Model\Document\Filesystem\UrlResolverInterface;
 use Psr\Log\LoggerInterface;
@@ -50,8 +52,15 @@ final class RestrictedResolver implements UrlResolverInterface
             $documentType = null;
         }
 
-        return $documentType && $documentType->getExtensionAttributes()->getIsRestricted()
+        return $documentType && $this->isRestricted($documentType)
             ? $this->urlBuilder->getUrl('document/restrict/view', ['id' => $document->getId()])
             : '';
+    }
+
+    private function isRestricted(DocumentTypeInterface $documentType): bool
+    {
+        return (bool) ($documentType instanceof AbstractModel
+            ? $documentType->getData('is_restricted')
+            : $documentType->getExtensionAttributes()->getIsRestricted());
     }
 }
