@@ -8,6 +8,12 @@ declare(strict_types=1);
 namespace Opengento\DocumentRestrict\Model;
 
 use Exception;
+use Magento\Framework\EntityManager\HydratorInterface;
+use Magento\Framework\EntityManager\HydratorPool;
+use Magento\Framework\Exception\CouldNotSaveException;
+use Magento\Framework\Exception\FileSystemException;
+use Opengento\Document\Api\Data\DocumentInterface;
+use Opengento\Document\Api\DocumentRepositoryInterface;
 use Opengento\Document\Model\Document\Filesystem\File;
 use Opengento\Document\Model\ResourceModel\DocumentType\Collection as DocTypeCollection;
 use Opengento\Document\Model\ResourceModel\DocumentType\CollectionFactory as DocTypeCollectionFactory;
@@ -16,6 +22,8 @@ use Opengento\Document\Model\ResourceModel\Document\Collection as DocumentCollec
 use Opengento\Document\Model\ResourceModel\Document\CollectionFactory as DocumentCollectionFactory;
 use Psr\Log\LoggerInterface;
 use function array_diff;
+use function basename;
+use function dirname;
 
 final class Migrate
 {
@@ -35,6 +43,16 @@ final class Migrate
     private $docTypeCollectionFactory;
 
     /**
+     * @var DocumentRepositoryInterface
+     */
+    private $documentRepository;
+
+    /**
+     * @var HydratorInterface
+     */
+    private $hydrator;
+
+    /**
      * @var File
      */
     private $file;
@@ -48,16 +66,23 @@ final class Migrate
         MigrateDb $migrateDb,
         DocumentCollectionFactory $documentCollectionFactory,
         DocTypeCollectionFactory $docTypeCollectionFactory,
+        DocumentRepositoryInterface $documentRepository,
+        HydratorPool $hydratorPool,
         File $file,
         LoggerInterface $logger
     ) {
         $this->migrateDb = $migrateDb;
         $this->documentCollectionFactory = $documentCollectionFactory;
         $this->docTypeCollectionFactory = $docTypeCollectionFactory;
+        $this->documentRepository = $documentRepository;
+        $this->hydrator = $hydratorPool->getHydrator(DocumentInterface::class);
         $this->file = $file;
         $this->logger = $logger;
     }
 
+    /**
+     * @throws FileSystemException
+     */
     public function migrateQueue(): void
     {
         $typeIds = $this->migrateDb->fetchPendingTypeIds();
@@ -72,11 +97,20 @@ final class Migrate
 
         foreach ($documentCollection->getItems() as $document) {
             $filePath = $this->file->getFilePath($document);
+            $destPath = $this->file->getFileDestPath(
+                $docTypeCollection->getItemById($document->getTypeId()),
+                $filePath
+            );
+            $document = $this->hydrator->hydrate(
+                $document,
+                ['file_path' => dirname($destPath), 'file_name' => basename($destPath)]
+            );
             try {
-                $this->file->moveFile(
-                    $filePath,
-                    $this->file->getFileDestPath($docTypeCollection->getItemById($document->getTypeId()), $filePath)
-                );
+                $this->file->moveFile($filePath, $destPath);
+                $this->documentRepository->save($document);
+            } catch (CouldNotSaveException $e) {
+                $this->logger->error($e->getMessage(), $e->getTrace());
+                $this->file->moveFile($destPath, $filePath);
             } catch (Exception $e) {
                 $this->logger->error($e->getMessage(), $e->getTrace());
                 $failedTypeIds[$document->getTypeId()] = $document->getTypeId();

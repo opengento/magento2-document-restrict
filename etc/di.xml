@@ -53,8 +53,11 @@
     </type>
     <type name="Opengento\Document\Model\Document\Filesystem\UrlResolver">
         <arguments>
-            <argument name="urlResolvers" xsi:type="array">
-                <item name="restricted" xsi:type="object">Opengento\DocumentRestrict\Model\Document\Filesystem\UrlResolver\RestrictedResolver</item>
+            <argument name="resolvers" xsi:type="array">
+                <item name="restricted" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="resolver" xsi:type="object">Opengento\DocumentRestrict\Model\Document\Filesystem\UrlResolver\RestrictedResolver</item>
+                </item>
             </argument>
         </arguments>
     </type>

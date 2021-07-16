@@ -15,12 +15,12 @@
     "type": "magento2-module",
     "require": {
         "magento/framework": "^103.0",
-        "opengento/module-document": "^1.0"
+        "opengento/module-document": "^2.0"
     },
     "require-dev": {
         "magento/magento-coding-standard": "^5",
         "magento/marketplace-eqp": "^4.0",
-        "roave/security-advisories": "dev-latest"
+        "roave/security-advisories": "dev-master"
     },
     "suggest": {
         "opengento/module-document-product-link": "This module aims to help merchants to link their documents to products in Magento 2.",

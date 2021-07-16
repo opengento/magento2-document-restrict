@@ -41,7 +41,7 @@ final class RestrictedResolver implements UrlResolverInterface
         $this->logger = $logger;
     }
 
-    public function getUrl(DocumentInterface $document): string
+    public function getFileUrl(DocumentInterface $document): string
     {
         try {
             $documentType = $this->documentTypeRepository->getById($document->getTypeId());

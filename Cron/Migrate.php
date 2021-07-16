@@ -7,7 +7,9 @@ declare(strict_types=1);
 
 namespace Opengento\DocumentRestrict\Cron;
 
+use Magento\Framework\Exception\FileSystemException;
 use Opengento\DocumentRestrict\Model\Migrate as MigrateService;
+use Psr\Log\LoggerInterface;
 
 final class Migrate
 {
@@ -16,14 +18,25 @@ final class Migrate
      */
     private $migrateService;
 
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
     public function __construct(
-        MigrateService $migrateService
+        MigrateService $migrateService,
+        LoggerInterface $logger
     ) {
         $this->migrateService = $migrateService;
+        $this->logger = $logger;
     }
 
     public function execute(): void
     {
-        $this->migrateService->migrateQueue();
+        try {
+            $this->migrateService->migrateQueue();
+        } catch (FileSystemException $e) {
+            $this->logger->error($e->getLogMessage(), $e->getTrace());
+        }
     }
 }

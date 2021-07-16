@@ -44,6 +44,9 @@
         <index referenceId="OPENGENTO_DOCUMENT_TYPE_RESTRICT_MIGRATE_TYPE_ID" indexType="btree">
             <column name="type_id"/>
         </index>
+        <index referenceId="OPENGENTO_DOCUMENT_TYPE_RESTRICT_MIGRATE_STATE" indexType="btree">
+            <column name="state"/>
+        </index>
     </table>
     <!-- opengento_document_type_restrict_customer -->
     <!-- new relations in (document type or document) -->
